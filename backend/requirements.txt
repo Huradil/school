@@ -1,0 +1,7 @@
+django==4.2
+psycopg2
+Pillow
+djangorestframework
+psycopg2-binary
+django-environ
+gunicorn
