@@ -9,11 +9,15 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import environ
 from pathlib import Path
+
+env=environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+environ.Env.read_env(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +29,7 @@ SECRET_KEY = 'django-insecure-%r0zwj+4*50yj*h6be=pz4y-2#h^bun%dhj8*by=dcbc96vh#e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env('AllOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -80,8 +84,12 @@ WSGI_APPLICATION = 'school.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DB_NAME'),
+        'USER':env('DB_USER'),
+        'HOST':env('DB_HOST'),
+        'PORT':env('DB_PORT'),
+        'PASSWORD':env('DB_PASSWORD'),
     }
 }
 
@@ -142,8 +150,8 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'nuradiltolokov@gmail.com'  # Ваш адрес электронной почты
-EMAIL_HOST_PASSWORD = '154290Nura'  # Ваш пароль от электронной почты
+EMAIL_HOST_USER = ''  # Ваш адрес электронной почты
+EMAIL_HOST_PASSWORD = ''  # Ваш пароль от электронной почты
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = 'nuradiltolokov@gmail.com'  # Адрес электронной почты отправителя
+DEFAULT_FROM_EMAIL = ''  # Адрес электронной почты отправителя
